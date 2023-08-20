@@ -14,3 +14,4 @@ resources:
   - namespace.yaml
   - serviceaccount.yaml
   - nodeport-service.yaml
+  - ingress.yaml

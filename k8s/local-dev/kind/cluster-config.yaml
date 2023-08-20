@@ -4,6 +4,6 @@ nodes:
 - role: control-plane
   extraPortMappings:
   - containerPort: 30950
-    hostPort: 30000
+    hostPort: 1080
     listenAddress: "0.0.0.0"
     protocol: tcp
