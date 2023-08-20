@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tusd-n
+  labels:
+    app: tusd-n
+spec:
+  type: NodePort
+  ports:
+    - name: api
+      port: 8080
+      targetPort: "api"
+      protocol: TCP
+      nodePort: 30950
+  selector:
+    app.kubernetes.io/name: tusd

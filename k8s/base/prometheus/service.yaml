@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '9090'
+  labels:
+    app.kubernetes.io/name: prometheus
+spec:
+  selector:
+    app.kubernetes.io/name: prometheus
+  type: ClusterIP
+  ports:
+    - port: 9090

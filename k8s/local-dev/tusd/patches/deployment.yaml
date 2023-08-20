@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tusd
+spec:
+  template:
+    spec:
+      containers:
+      - name: tusd
+        image: resumable-upload/tusd:0.0.1
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: TUSD_LOG_LEVEL
+            valueFrom:
+              configMapKeyRef:
+                name: tusd
+                key: tusd-log-level 
+        envFrom:
+          - configMapRef:
+              name: dev-opentelemetry-configmap
+              optional: true
+        resources:
+          requests: 
+            memory: "128Mi"
+            cpu: "250m"
+          limits: 
+            memory: "512Mi"
