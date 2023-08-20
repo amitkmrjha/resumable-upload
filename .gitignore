@@ -19,3 +19,12 @@
 
 # Go workspace file
 go.work
+
+tusd/data
+cover.out
+data/
+node_modules/
+.DS_Store
+./tusd
+tusd_*_*
+.idea/
