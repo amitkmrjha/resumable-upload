@@ -62,16 +62,6 @@ unapplyServices:
 .PHONY: reDeploy
 reDeploy:
 	kubectl delete deployment ${service} --ignore-not-found=true -n ${NAMESPACE}
-	sbt ";project ${service}; clean; compile; Docker/publishLocal"
-	kind load docker-image ${service}-main:${SVC_VERSION}  --name=${CLUSTER_NAME}
+	docker build -t resumable-upload/tusd:${SVC_VERSION} .
+	kind load docker-image resumable-upload/${service}:${SVC_VERSION}  --name=${CLUSTER_NAME}
 	kubectl apply -k k8s/local-dev/${service} -n ${NAMESPACE}
-
-publishIt:
-		docker build . -f asset-flagship-proxy-svc-it/Dockerfile -t asset-flagship-proxy-svc-it:${SVC_VERSION}
-		kind load docker-image asset-flagship-proxy-svc-it:${SVC_VERSION} --name=${CLUSTER_NAME}
-
-applyIt:
-		kubectl apply -k k8s/local-dev/asset-flagship-proxy-svc-it -n ${NAMESPACE}
-
-deployIt: publishIt applyIt
-
