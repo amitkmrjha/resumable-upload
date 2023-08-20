@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: tusd
+spec:
+  minAvailable: 66%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tusd

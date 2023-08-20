@@ -1,0 +1,17 @@
+patches:
+  - path: patches/deployment.yaml
+  - path: patches/configmap.yaml
+  - target:
+      kind: HorizontalPodAutoscaler
+    patch: |
+      $patch: delete
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: tusd-hpa
+resources:
+  - ../../base/tusd
+  - namespace.yaml
+  - serviceaccount.yaml
+  - nodeport-service.yaml
+  - ingress.yaml
