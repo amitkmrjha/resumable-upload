@@ -202,6 +202,12 @@ spec:
           resources:
             {}
           env:
+            - name: AWS_ACCESS_KEY_ID
+              value: localstack123
+            - name: AWS_SECRET_ACCESS_KEY
+              value: localstack123
+            - name: AWS_DEFAULT_REGION
+              value: us-east-1
             - name: DEBUG
               value: "0"
             - name: EXTERNAL_SERVICE_PORTS_START

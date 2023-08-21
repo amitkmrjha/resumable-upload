@@ -4,6 +4,6 @@ metadata:
   name: tusd
 data:
   tusd-log-level : "INFO"
-  aws-acess-key-id: "minio123"
-  aws-secret-access-key : "minio123"
-  aws-region : "eu-west-1"
+  aws-acess-key-id: "localstack123"
+  aws-secret-access-key : "localstack123"
+  aws-region : "us-east-1"

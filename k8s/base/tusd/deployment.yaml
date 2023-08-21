@@ -32,9 +32,9 @@ spec:
           - "1080"
           - "-verbose"
           - "-s3-bucket"
-          - "mybucket"
+          - "tusdbucket"
           - "-s3-endpoint"
-          - "http://minio:9000"
+          - "http://localstack:4566"
         env:
           - name: AWS_ACCESS_KEY_ID
             valueFrom:

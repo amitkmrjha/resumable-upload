@@ -29,16 +29,21 @@ publishTusd:
 pullDependencies:
 		docker pull ${PROMETHEUS_IMAGE}
 		docker pull ${GRAFANA_IMAGE}
-		#docker pull ${LOCALSTACK_IMAGE}
-		docker pull ${MINIO_IMAGE}
+		docker pull ${LOCALSTACK_IMAGE}
+		#docker pull ${MINIO_IMAGE}
 
 loadImage: loadDependentImage loadServiceImage
 
 loadDependentImage:
 		kind load docker-image  ${PROMETHEUS_IMAGE} --name=${CLUSTER_NAME}
 		kind load docker-image ${GRAFANA_IMAGE} --name=${CLUSTER_NAME}
-		#kind load docker-image ${LOCALSTACK_IMAGE} --name=${CLUSTER_NAME}
-		kind load docker-image ${MINIO_IMAGE} --name=${CLUSTER_NAME}
+		kind load docker-image ${LOCALSTACK_IMAGE} --name=${CLUSTER_NAME}
+		#kind load docker-image ${MINIO_IMAGE} --name=${CLUSTER_NAME}
+
+# The buckets need to exist - required localstack dependency running
+buckets:
+		kubectl -n ${NAMESPACE} exec deploy/localstack -- aws --endpoint-url=http://localhost:4566 s3 mb s3://tusdbucket
+		kubectl -n ${NAMESPACE} exec deploy/localstack -- aws --endpoint-url=http://localhost:4566 s3api list-buckets
 
 loadServiceImage:
 		kind load docker-image resumable-upload/tusd:${SVC_VERSION}  --name=${CLUSTER_NAME}
@@ -51,8 +56,8 @@ applyServices:
 applyDependencies:
 		kubectl apply -k k8s/local-dev/prometheus -n ${NAMESPACE}
 		kubectl apply -k k8s/local-dev/grafana -n ${NAMESPACE}
-		#kubectl apply -k k8s/local-dev/localstack -n ${NAMESPACE}
-		kubectl apply -k k8s/local-dev/minio -n ${NAMESPACE}
+		kubectl apply -k k8s/local-dev/localstack -n ${NAMESPACE}
+		#kubectl apply -k k8s/local-dev/minio -n ${NAMESPACE}
 
 deploy: publish apply		
 
