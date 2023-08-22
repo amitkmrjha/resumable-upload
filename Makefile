@@ -44,6 +44,7 @@ loadDependentImage:
 buckets:
 		kubectl -n ${NAMESPACE} exec deploy/localstack -- aws --endpoint-url=http://localhost:4566 s3 mb s3://tusdbucket
 		kubectl -n ${NAMESPACE} exec deploy/localstack -- aws --endpoint-url=http://localhost:4566 s3api list-buckets
+		kubectl -n ${NAMESPACE} exec deploy/localstack -- aws --endpoint-url=http://localhost:4566 s3api list-objects --bucket tusdbucket --output json --query "[length(Contents[])]"
 
 loadServiceImage:
 		kind load docker-image resumable-upload/tusd:${SVC_VERSION}  --name=${CLUSTER_NAME}
