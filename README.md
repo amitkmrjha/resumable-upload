@@ -1,6 +1,4 @@
-# tusd
-
-<img alt="Tus logo" src="https://github.com/tus/tus.io/blob/main/assets/img/tus1.png?raw=true" width="30%" align="right" />
+# tusd 
 
 > **tus** is a protocol based on HTTP for *resumable file uploads*. Resumable
 > means that an upload can be interrupted at any moment and can be resumed without
@@ -19,25 +17,41 @@ on disk, on Google Cloud Storage or on AWS S3 (or any other S3-compatible
 storage system). Due to its modularization and extensibility, support for
 nearly any other cloud provider could easily be added to tusd.
 
-**Protocol version:** 1.0.0
 
-This branch contains tusd v1. If you are looking for the previous major release, after which
-breaking changes have been introduced, please look at the [0.14.0 tag](https://github.com/tus/tusd/tree/0.14.0).
+## Starting the tusd server in Kubernetes Kind cluster
 
-## Documentation
+To start the tusd , refer to the commands in the available `Makefile` as we discuss them the steps necessary.
 
-* [Installation](/docs/installation.md)
-* [Using the `tusd` binary](/docs/usage-binary.md)
-  * [Monitoring the server](/docs/monitoring.md)
-  * [Receiving events with hooks](/docs/hooks.md)
-* [Using the tusd package programmatically](/docs/usage-package.md)
-* [FAQ & Common issues](/docs/faq.md)
+### Prerequisites
+1. [Kind Installation](https://kind.sigs.k8s.io/)
+2. [Docker Installation](https://www.docker.com/products/docker-desktop/)
 
-## Build status
+### Steps to Follow
+1. Ensure you have the latest `master` branch cloned onto your environment.
+2. Navigate to the root of the esumable-upload-tusd folder you have just cloned.
+3. Run this command in the command line to automatically create a new kind cluster with the appropriate configuration
+   and namespace (resumable-upload) set up for you.
+    ```shell
+   make cluster
+   ```
+4. Run this command in the command line to build all components and create the docker images. This can
+   be a time-consuming process when running for the first time.
+    ```shell
+   make publish
+   ```
+5. Run this command in the command line to load the docker images into the created kind cluster.
+   This can be a very time-consuming process.
+    ```shell
+   make loadImage
+   ```
+6. Run this command to apply the Kubernetes configurations in the Asset Flagship Proxy Service project to the kind cluster and start the deployment!
+    ```shell
+   make apply
+   ```
+### Deleting the kind cluster
+There may some reason you may have to delete your kind cluster. Run the command below in the root directory of the Asset Flagship Proxy Service project to delete the local cluster with the
+namespace "asset-flagship-proxy".
 
-[![release](https://github.com/tus/tusd/actions/workflows/release.yaml/badge.svg)](https://github.com/tus/tusd/actions/workflows/release.yaml)
-[![continuous-integration](https://github.com/tus/tusd/actions/workflows/continuous-integration.yaml/badge.svg)](https://github.com/tus/tusd/actions/workflows/continuous-integration.yaml)
-
-## License
-
-This project is licensed under the MIT license, see `LICENSE.txt`.
+````shell
+make clean
+````
