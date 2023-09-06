@@ -28,7 +28,7 @@ To start the tusd , refer to the commands in the available `Makefile` as we disc
 
 ### Steps to Follow
 1. Ensure you have the latest `master` branch cloned onto your environment.
-2. Navigate to the root of the esumable-upload-tusd folder you have just cloned.
+2. Navigate to the root of the resumable-upload-tusd folder you have just cloned.
 3. Run this command in the command line to automatically create a new kind cluster with the appropriate configuration
    and namespace (resumable-upload) set up for you.
     ```shell
@@ -44,13 +44,13 @@ To start the tusd , refer to the commands in the available `Makefile` as we disc
     ```shell
    make loadImage
    ```
-6. Run this command to apply the Kubernetes configurations in the Asset Flagship Proxy Service project to the kind cluster and start the deployment!
+6. Run this command to apply the Kubernetes configurations in the resumable-upload-tusd project to the kind cluster and start the deployment!
     ```shell
    make apply
    ```
 ### Deleting the kind cluster
 There may some reason you may have to delete your kind cluster. Run the command below in the root directory of the Asset Flagship Proxy Service project to delete the local cluster with the
-namespace "asset-flagship-proxy".
+namespace "resumable-upload-tusd".
 
 ````shell
 make clean
