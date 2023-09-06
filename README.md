@@ -49,8 +49,7 @@ To start the tusd , refer to the commands in the available `Makefile` as we disc
    make apply
    ```
 ### Deleting the kind cluster
-There may some reason you may have to delete your kind cluster. Run the command below in the root directory of the Asset Flagship Proxy Service project to delete the local cluster with the
-namespace "resumable-upload-tusd".
+There may some reason you may have to delete your kind cluster. Run the command below in the root directory of the resumable-upload-tusd project to delete the local cluster 
 
 ````shell
 make clean
